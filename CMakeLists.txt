@@ -66,7 +66,7 @@ endif()
 # ========================================================== #
 
 if (BUILD_TESTS)
-  foreach(example example1 example2 mpi_hello_world # fmm_cheb fmm_pts
+  foreach(example example1 example2 # fmm_cheb fmm_pts
       )
 
 	add_executable(${example} "examples/src/${example}.cpp")
