@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 project(pvfmm)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
@@ -64,7 +64,8 @@ endif()
 # ========================================================== #
 
 if (BUILD_TESTS)
-foreach(example example1 example2 fmm_cheb fmm_pts)
+foreach(example example1 example2 # fmm_cheb fmm_pts
+    )
 
 	add_executable(${example} "examples/src/${example}.cpp")
 	include_directories("examples/include")
