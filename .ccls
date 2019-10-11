@@ -1,0 +1,5 @@
+clang
+%cpp -std=c++11
+%txx c++ -std=c++11
+
+-Iinclude
