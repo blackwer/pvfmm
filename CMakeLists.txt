@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(pvfmm LANGUAGES CXX CUDA)
+project(pvfmm)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 find_package(MPI REQUIRED)
@@ -32,12 +32,11 @@ configure_file("include/pvfmm_config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
 
 include_directories("include")
-add_definitions("-Wall -Werror -std=c++11 -march=native")
+add_definitions("-std=c++11 -march=native")
 
 set(pvfmm_SOURCES
 	src/cheb_utils.cpp
 	src/device_wrapper.cpp
-	src/fmm_gll.cpp
 	src/legendre_rule.cpp
 	src/math_utils.cpp
 	src/mat_utils.cpp
