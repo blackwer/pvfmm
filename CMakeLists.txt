@@ -56,14 +56,16 @@ else()
 endif()
 
 if (MPI_COMPILE_FLAGS)
-	set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
+  set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
 endif()
 
 if (OpenMP_CXX_FLAGS)
-	set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${OpenMP_CXX_FLAGS}")
+  set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${OpenMP_CXX_FLAGS}")
 endif()
 
-set_target_properties(pvfmm PROPERTIES PUBLIC_HEADER "include/blas.h;\
+set_target_properties(pvfmm PROPERTIES PUBLIC_HEADER "\
+${CMAKE_CURRENT_BINARY_DIR}/include/pvfmm_config.h;\
+include/blas.h;\
 include/cheb_node.hpp;\
 include/cheb_node.txx;\
 include/cheb_utils.hpp;\
@@ -109,7 +111,6 @@ include/precomp_mat.hpp;\
 include/precomp_mat.txx;\
 include/profile.hpp;\
 include/pvfmm_common.hpp;\
-include/pvfmm_config.h;\
 include/pvfmm.h;\
 include/pvfmm.hpp;\
 include/pvfmm.txx;\

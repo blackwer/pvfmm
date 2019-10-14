@@ -7,8 +7,9 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/blackwer/pvfmm/archive/{{ version }}-alpha.tar.gz
-  sha256: {{ sha256 }}
+  git_url: https://github.com/blackwer/pvfmm.git
+  git_branch: new_BC
+  git_depth: 1
 
 build:
   number: 0
