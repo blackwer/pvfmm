@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-mkdir build
+mkdir -p build
 cd build
 
-cmake \
+CXXFLAGS="-march=x86-64" cmake \
     -DCMAKE_PREFIX_PATH=$PREFIX \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCMAKE_BUILD_TYPE=Release \
@@ -11,6 +11,7 @@ cmake \
     ..
 
 cmake --build . -- -j${CPU_COUNT}
+make install
 
 # ./autogen.sh
 # ./configure --prefix=$PREFIX

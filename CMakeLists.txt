@@ -34,7 +34,7 @@ configure_file("include/pvfmm_config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
 
 include_directories("include")
-add_definitions("-std=c++11 -march=native")
+add_definitions("-std=c++11")
 
 set(pvfmm_SOURCES
   src/cheb_utils.cpp
@@ -62,6 +62,64 @@ endif()
 if (OpenMP_CXX_FLAGS)
 	set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${OpenMP_CXX_FLAGS}")
 endif()
+
+set_target_properties(pvfmm PROPERTIES PUBLIC_HEADER "include/blas.h;\
+include/cheb_node.hpp;\
+include/cheb_node.txx;\
+include/cheb_utils.hpp;\
+include/cheb_utils.txx;\
+include/device_wrapper.hpp;\
+include/device_wrapper.txx;\
+include/dtypes.h;\
+include/fft_wrapper.hpp;\
+include/fmm_cheb.hpp;\
+include/fmm_cheb.txx;\
+include/fmm_node.hpp;\
+include/fmm_node.txx;\
+include/fmm_pts_gpu.hpp;\
+include/fmm_pts.hpp;\
+include/fmm_pts.txx;\
+include/fmm_tree.hpp;\
+include/fmm_tree.txx;\
+include/interac_list.hpp;\
+include/interac_list.txx;\
+include/intrin_wrapper.hpp;\
+include/kernel.hpp;\
+include/kernel.txx;\
+include/lapack.h;\
+include/legendre_rule.hpp;\
+include/math_utils.hpp;\
+include/matrix.hpp;\
+include/matrix.txx;\
+include/mat_utils.hpp;\
+include/mat_utils.txx;\
+include/mem_mgr.hpp;\
+include/mem_mgr.txx;\
+include/mortonid.hpp;\
+include/mortonid.txx;\
+include/mpi_node.hpp;\
+include/mpi_node.txx;\
+include/mpi_tree.hpp;\
+include/mpi_tree.txx;\
+include/ompUtils.h;\
+include/ompUtils.txx;\
+include/parUtils.h;\
+include/parUtils.txx;\
+include/precomp_mat.hpp;\
+include/precomp_mat.txx;\
+include/profile.hpp;\
+include/pvfmm_common.hpp;\
+include/pvfmm_config.h;\
+include/pvfmm.h;\
+include/pvfmm.hpp;\
+include/pvfmm.txx;\
+include/pvfmm.f90;\
+include/stacktrace.h;\
+include/tree.hpp;\
+include/tree_node.hpp;\
+include/tree.txx;\
+include/vector.hpp;\
+include/vector.txx")
 
 # ========================================================== #
 
@@ -98,3 +156,10 @@ if (BUILD_TESTS)
 
   endforeach()
 endif()
+
+# ========================================================== #
+
+install(TARGETS pvfmm
+  ARCHIVE DESTINATION lib
+  PUBLIC_HEADER DESTINATION include/pvfmm
+  )

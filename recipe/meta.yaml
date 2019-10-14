@@ -16,10 +16,6 @@ build:
 
 requirements:
   build:
-    # - autoconf
-    # - automake
-    # - libtool
-    # - make
     - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -27,17 +23,16 @@ requirements:
     - openmpi
     - fftw
     - blas
-    - lapack
+
   run:
     - openmpi
     - fftw
     - blas
-    - lapack
 
 test:
   commands:
     - test -f $PREFIX/include/pvfmm/pvfmm.hpp
-    - test -f $PREFIX/lib/pvfmm/libpfmm.a
+    - test -f $PREFIX/lib/libpvfmm.a
 
 about:
   home: http://github.com/blackwer/pvfmm
