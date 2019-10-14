@@ -162,5 +162,5 @@ endif()
 
 install(TARGETS pvfmm
   ARCHIVE DESTINATION lib
-  PUBLIC_HEADER DESTINATION include/pvfmm
+  PUBLIC_HEADER DESTINATION include
   )
