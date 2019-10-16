@@ -52,15 +52,18 @@ if (CUDA_FOUND)
   list(APPEND pvfmm_SOURCES src/fmm_pts_gpu.cu)
   cuda_add_library(pvfmm STATIC ${pvfmm_SOURCES})
 else()
-  add_library(pvfmm STATIC ${pvfmm_SOURCES})
+  add_library(pvfmm SHARED ${pvfmm_SOURCES})
+  add_library(pvfmm_static STATIC ${pvfmm_SOURCES})
 endif()
 
 if (MPI_COMPILE_FLAGS)
   set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
+  set_target_properties(pvfmm_static PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
 endif()
 
 if (OpenMP_CXX_FLAGS)
   set_target_properties(pvfmm PROPERTIES COMPILE_FLAGS "${OpenMP_CXX_FLAGS}")
+  set_target_properties(pvfmm_static PROPERTIES COMPILE_FLAGS "${OpenMP_CXX_FLAGS}")
 endif()
 
 set_target_properties(pvfmm PROPERTIES PUBLIC_HEADER "\
@@ -160,7 +163,8 @@ endif()
 
 # ========================================================== #
 
-install(TARGETS pvfmm
+install(TARGETS pvfmm pvfmm_static
   ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
   PUBLIC_HEADER DESTINATION include
   )
