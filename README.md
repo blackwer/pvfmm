@@ -1,183 +1,80 @@
-About pvfmm
-===========
+# PVFMM [![Build Status](https://travis-ci.org/dmalhotra/pvfmm.svg?branch=develop)](https://travis-ci.org/dmalhotra/pvfmm)
 
-Home: http://github.com/blackwer/pvfmm
+### new_BC branch
+This new_BC branch is forked by Wen Yan from the original pvfmm code to support for 1D, 2D and 3D periodicity in 3D space.
 
-Package license: GPL3
+It is implemented in a quick and dirty way. To choose periodicity, define a global variable 
+extern PeriodicType pvfmm::periodicType
+in one .h or .cpp file and set it to one of the following enum values:
+NONE,PX,PXY,PXYZ
 
-Feedstock license: BSD 3-Clause
+to use this package, refer to the repo https://github.com/wenyan4work/PeriodicFMM
 
-Summary: pvfmm with periodic boundary conditions
-
-PVFMM is a library for solving certain types of elliptic partial differential equations.
-
-We support Stokes, Poisson, and Helmholtz problems on the unit cube, with free-space or periodic boundary conditions, with constant or mildly varying coefficients. Our method is based on volume potential integral equation formulation accelerated by the Kernel Independent Fast Multipole Method.
-
-
-Current build status
-====================
+update: modified to remove fortran compiler dependence and make it work with clang-openmp/llvm. Specify BLAS/LAPACK directly through CXXFLAGS and LDFLAGS.
 
 
-<table>
+My thanks go to Dhairya Malhotra for providing patches and instructions to his code.
+Below is the original pvfmm readme file.
+
+### What is PVFMM?
+
+   PVFMM is a library for solving certain types of elliptic partial
+   differential equations. 
     
-  <tr>
-    <td>Azure</td>
-    <td>
-      <details>
-        <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master">
-          </a>
-        </summary>
-        <table>
-          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
-          <tbody><tr>
-              <td>linux_mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master&jobName=linux&configuration=linux_mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master&jobName=linux&configuration=linux_mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master&jobName=osx&configuration=osx_mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master&jobName=osx&configuration=osx_mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_c_compilervs2015cxx_compilervs2015mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master&jobName=win&configuration=win_c_compilervs2015cxx_compilervs2015mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_c_compilervs2015cxx_compilervs2015mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/pvfmm-feedstock?branchName=master&jobName=win&configuration=win_c_compilervs2015cxx_compilervs2015mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
-    </td>
-  </tr>
-  <tr>
-    <td>Linux_ppc64le</td>
-    <td>
-      <img src="https://img.shields.io/badge/ppc64le-disabled-lightgrey.svg" alt="ppc64le disabled">
-    </td>
-  </tr>
-</table>
-
-Current release info
-====================
-
-| Name | Downloads | Version | Platforms |
-| --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-pvfmm-green.svg)](https://anaconda.org/conda-forge/pvfmm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pvfmm.svg)](https://anaconda.org/conda-forge/pvfmm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pvfmm.svg)](https://anaconda.org/conda-forge/pvfmm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pvfmm.svg)](https://anaconda.org/conda-forge/pvfmm) |
-
-Installing pvfmm
-================
-
-Installing `pvfmm` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
-
-```
-conda config --add channels conda-forge
-```
-
-Once the `conda-forge` channel has been enabled, `pvfmm` can be installed with:
-
-```
-conda install pvfmm
-```
-
-It is possible to list all of the versions of `pvfmm` available on your platform with:
-
-```
-conda search pvfmm --channel conda-forge
-```
+   * We support Stokes, Poisson, and Helmholtz problems on the unit
+     cube, with free-space or periodic boundary conditions, with
+     constant or mildly varying coefficients. Our method is based on
+     volume potential integral equation formulation accelerated by the
+     Kernel Independent Fast Multipole Method. 
 
 
-About conda-forge
-=================
+### How to get PVFMM
 
-[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
+   For the latest stable release of PVFMM visit [pvfmm.org](http://pvfmm.org)
 
-conda-forge is a community-led conda channel of installable packages.
-In order to provide high-quality builds, the process has been automated into the
-conda-forge GitHub organization. The conda-forge organization contains one repository
-for each of the installable packages. Such a repository is known as a *feedstock*.
+### License
 
-A feedstock is made up of a conda recipe (the instructions on what and how to build
-the package) and the necessary configurations for automatic building using freely
-available continuous integration services. Thanks to the awesome service provided by
-[CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/)
-and [TravisCI](https://travis-ci.org/) it is possible to build and upload installable
-packages to the [conda-forge](https://anaconda.org/conda-forge)
-[Anaconda-Cloud](https://anaconda.org/) channel for Linux, Windows and OSX respectively.
+   PVFMM is distributed under the LGPLv3 licence. See COPYING in
+   the top-level directory of the distribution. 
 
-To manage the continuous integration and simplify feedstock maintenance
-[conda-smithy](https://github.com/conda-forge/conda-smithy) has been developed.
-Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
-this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
+### Installing PVFMM
 
-For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
-
-Terminology
-===========
-
-**feedstock** - the conda recipe (raw material), supporting scripts and CI configuration.
-
-**conda-smithy** - the tool which helps orchestrate the feedstock.
-                   Its primary use is in the construction of the CI ``.yml`` files
-                   and simplify the management of *many* feedstocks.
-
-**conda-forge** - the place where the feedstock and smithy live and work to
-                  produce the finished article (built conda distributions)
+   To install PVFMM, follow the steps in the INSTALL file, which is
+   located in the top directory of the source distribution. 
 
 
-Updating pvfmm-feedstock
-========================
+### Using PVFMM
 
-If you would like to improve the pvfmm recipe or build a new
-package version, please fork this repository and submit a PR. Upon submission,
-your changes will be run on the appropriate platforms to give the reviewer an
-opportunity to confirm that the changes result in a successful build. Once
-merged, the recipe will be re-built and uploaded automatically to the
-`conda-forge` channel, whereupon the built conda packages will be available for
-everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/pvfmm-feedstock are
-immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
-build distinct package versions.
+   The file examples/Makefile can be used as a template makefile for any
+   project using the library. In general the MakeVariables file should
+   be included in any makefile and CXXFLAGS_PVFMM and LDFLAGS_PVFMM should
+   be used to compile the code.
 
-In order to produce a uniquely identifiable distribution:
- * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string).
- * If the version of a package **is** being increased, please remember to return
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
-   back to 0.
+   Two very simple examples illustrating usage of the library are available:
+      For particle N-body  : examples/src/example1.cpp
+      For volume potentials: examples/src/example2.cpp 
 
-Feedstock Maintainers
-=====================
+   To compile these examples:
+      make examples/bin/example1
+      make examples/bin/example2
 
-* [@blackwer](https://github.com/blackwer/)
+   * The volume potentials example will take a long time, the first time
+     it is used, since it has to precompute quadrature rules. This data
+     is saved to a file and used for subsequent runs. See INSTALL for
+     the configure option '--with-precomp-dir=DIR' to set the default
+     path for precomputed data.
+
+
+### Acknowledgment
+
+   This software has been developed as part of the work supported by,
+   * US National Institutes of Health/10042242
+   * US Department of Energy/DE-SC0010518
+   * US Department of Energy/DE-SC0009286
+   * US National Science Foundation/CCF-1337393
+   * US Air Force Office for Scientific Research /FA9550-12-10484
+
+   The authors would also like to thank ORNL/OLCF and TACC for providing
+   access to computing resources for the development, testing and
+   benchmarking of this software.
 
