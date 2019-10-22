@@ -3,6 +3,7 @@ project(pvfmm)
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
+set(MPI_CXX_SKIP_MPICXX true)
 find_package(MPI REQUIRED)
 include_directories(${MPI_INCLUDE_PATH})
 
